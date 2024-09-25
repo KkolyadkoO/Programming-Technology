@@ -1,0 +1,23 @@
+﻿<Window x:Class="Lab2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab2"
+        mc:Ignorable="d"
+        Title="Lab2.1" Height="750" Width="1000">
+    <Grid Margin="0,0,0,-6" Width="1000">
+        <Button x:Name="CalculateButton" Content="Расчитать" HorizontalAlignment="Left" Margin="313,145,0,0" VerticalAlignment="Top" Height="46" Width="103" FontSize="18" Click="CalculateButton_Click"/>
+        <TextBox x:Name="XminTextBox" HorizontalAlignment="Left" Margin="111,102,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173" Height="26" FontSize="18"/>
+        <TextBox x:Name="XmaxTextBox" HorizontalAlignment="Left" Margin="111,155,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173" Height="26" FontSize="18"/>
+        <TextBox x:Name="dXTextBox" HorizontalAlignment="Left" Margin="111,211,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173" Height="26" FontSize="18"/>
+        <Label Content="Xmin" HorizontalAlignment="Left" Margin="26,96,0,0" VerticalAlignment="Top" Height="37" Width="55" FontSize="18"/>
+        <Label Content="Xmax" HorizontalAlignment="Left" Margin="26,149,0,0" VerticalAlignment="Top" Height="38" Width="55" FontSize="18"/>
+        <Label Content="dX" HorizontalAlignment="Left" Margin="26,206,0,0" VerticalAlignment="Top" Height="37" Width="55" FontSize="18"/>
+        <Image HorizontalAlignment="Left" Height="90" Margin="335,24,0,0" VerticalAlignment="Top" Width="636" Source="/74e4a8a7-b6de-4f07-9ba6-d012ebb783db.jpg"/>
+        <ListBox x:Name="ResultListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="54,329,44,31" FontSize="18"/>
+        <TextBox x:Name="ETextBox" HorizontalAlignment="Left" Margin="111,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173" Height="26" FontSize="18"/>
+        <Label Content="ε" HorizontalAlignment="Left" Margin="26,254,0,0" VerticalAlignment="Top" Height="37" Width="55" FontSize="24"/>
+
+    </Grid>
+</Window>
