@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{747F31D2-09A3-469A-9B42-DF03336569FA}</ProjectGuid>
+    <ProjectGuid>{21726F6D-66F5-4788-995C-90A210D794A1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Lab3_1</RootNamespace>
-    <AssemblyName>Lab3_1</AssemblyName>
+    <RootNamespace>Lab3_2</RootNamespace>
+    <AssemblyName>Lab3_2</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -95,7 +95,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="fe05e61a-73cf-435b-a712-d51f982a4d40.jpg" />
+    <Resource Include="c6269e81-3d5c-4132-9107-7eca28ae0406.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,7 +29,7 @@
 
         <Label Content="Преобразованный массив:" HorizontalAlignment="Left" Margin="13,533,0,0" VerticalAlignment="Top" FontSize="20"/>
         <DataGrid ColumnWidth="*" x:Name="TransformedDataGridView" HorizontalAlignment="Left" Margin="13,575,0,0" VerticalAlignment="Top" Height="200" Width="400" FontSize="20"/>
-        <Image HorizontalAlignment="Left" Height="458" Margin="600,153,0,0" VerticalAlignment="Top" Width="920"/>
+        <Image HorizontalAlignment="Left" Height="458" Margin="600,153,0,0" VerticalAlignment="Top" Width="920" Source="/fe05e61a-73cf-435b-a712-d51f982a4d40.jpg"/>
         <Label Content="Диапазон :" HorizontalAlignment="Left" Margin="623,631,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="A" HorizontalAlignment="Left" Margin="813,635,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
         <TextBox x:Name="B" HorizontalAlignment="Left" Margin="994,635,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
