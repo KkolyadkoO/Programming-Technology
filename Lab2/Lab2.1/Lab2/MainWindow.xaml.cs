@@ -52,11 +52,6 @@ namespace Lab2
                 MessageBox.Show("Ошибка: Xmax должно быть больше Xmin.", "Ошибка логики", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (xmin < -7 || xmax > 3)
-            {
-                MessageBox.Show("Ошибка: Допустимый диапозон [-7,3]", "Ошибка логики", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             if (dx <= 0)
             {
@@ -66,6 +61,10 @@ namespace Lab2
 
             for (double x = xmin; x <= xmax; x += dx)
             {
+                if(x < -7 || x > 3) {
+                    ResultListBox.Items.Add("x=" + x.ToString() + " вне диапазона");
+                    continue;
+                    }
                 if (x >= -7 && x <= -6) y = 1;
                 if (x > -6 && x < -4) y = (-0.5) * x - 2;
                 if (x >= -4 && x < 0) y = Math.Sqrt(-Math.Pow(x, 2) - 4 * x);
