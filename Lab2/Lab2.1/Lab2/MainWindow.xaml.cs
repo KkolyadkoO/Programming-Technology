@@ -11,7 +11,6 @@ using System.Windows.Shapes;
 
 namespace Lab2
 {
-   
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -31,40 +30,47 @@ namespace Lab2
 
             if (!double.TryParse(inputXmin, out double xmin))
             {
-                MessageBox.Show("Ошибка: введите корректное число для Xmin.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка: введите корректное число для Xmin.", "Ошибка ввода", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (!double.TryParse(inputXmax, out double xmax))
             {
-                MessageBox.Show("Ошибка: введите корректное число для Xmax.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка: введите корректное число для Xmax.", "Ошибка ввода", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (!double.TryParse(inputDx, out double dx))
             {
-                MessageBox.Show("Ошибка: введите корректное число для Dx.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка: введите корректное число для Dx.", "Ошибка ввода", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (xmin >= xmax)
             {
-                MessageBox.Show("Ошибка: Xmax должно быть больше Xmin.", "Ошибка логики", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка: Xmax должно быть больше Xmin.", "Ошибка логики", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             if (dx <= 0)
             {
-                MessageBox.Show("Ошибка: Dx должно быть больше 0.", "Ошибка логики", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка: Dx должно быть больше 0.", "Ошибка логики", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
                 return;
             }
 
             for (double x = xmin; x <= xmax; x += dx)
             {
-                if(x < -7 || x > 3) {
+                if (x < -7 || x > 3)
+                {
                     ResultListBox.Items.Add("x=" + x.ToString() + " вне диапазона");
                     continue;
-                    }
+                }
+
                 if (x >= -7 && x <= -6) y = 1;
                 if (x > -6 && x < -4) y = (-0.5) * x - 2;
                 if (x >= -4 && x < 0) y = Math.Sqrt(-Math.Pow(x, 2) - 4 * x);
@@ -74,6 +80,5 @@ namespace Lab2
                 ResultListBox.Items.Add("x=" + x.ToString() + " " + y.ToString());
             }
         }
-
     }
 }
