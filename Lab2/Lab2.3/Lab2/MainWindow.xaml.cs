@@ -21,12 +21,6 @@ namespace Lab2
             ResultListBox.Items.Add("Таблица Значений функции");
         }
 
-        private long Factorial(int n)
-        {
-            if (n <= 1)
-                return 1;
-            return n * Factorial(n - 1);
-        }
 
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -82,23 +76,26 @@ namespace Lab2
             {
                 double sum = 0;
                 bool done = true;
-                double term;
+                double term, prev=1;
                 int n;
 
 
-                for (n = 2; n < MAXITER; n++)
+                for (n = 1; n < MAXITER; n++)
                 {
-                    term = Math.Pow(x, n + 2) / Factorial(n) * Math.Pow(-1, n);
+                    term = Math.Abs(prev) * Math.Pow(-1, n) * (Math.Pow(x,2)/n);
 
+                   
                     sum += term;
+                    prev = term;
 
                     if (Math.Abs(term) < eps)
                     {
                         done = false;
+                        if (term < 0) continue;
                         break;
                     }
                 }
-                sum += 1 - Math.Pow(x,2);
+                sum += 1;
 
                 double f = Math.Pow(Math.E,-Math.Pow(x,2));
 
