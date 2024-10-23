@@ -1,0 +1,10 @@
+﻿<Window x:Class="Lab6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Предметный указатель" Height="450" Width="800">
+    <Grid>
+        <ListBox Name="IndexList" HorizontalAlignment="Left" Height="200" VerticalAlignment="Top" Width="300"/>
+        <Button Name="AddButton" Content="Добавить элемент" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="30" Click="AddButton_Click"/>
+        <Button Name="SortButton" Content="Сортировать" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="30" Margin="0,40,0,0" Click="SortButton_Click"/>
+    </Grid>
+</Window>

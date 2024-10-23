@@ -1,0 +1,25 @@
+﻿<Window x:Class="Lab4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Binary Calculator" Height="350" Width="525">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Введите первое двоичное число:" FontSize="14px" />
+            <TextBox x:Name="FirstBinaryInput" Width="200" FontSize="14px" />
+
+            <TextBlock Text="Введите второе двоичное число:" Margin="0,10,0,0" FontSize="14px" />
+            <TextBox x:Name="SecondBinaryInput" Width="200" FontSize="14px" />
+
+            <TextBlock Text="Выберите операцию:" Margin="0,10,0,0" FontSize="14px" />
+            <ComboBox x:Name="OperationComboBox" Width="200" FontSize="14px">
+                <ComboBoxItem Content="Сложение" />
+                <ComboBoxItem Content="Вычитание" />
+                <ComboBoxItem Content="Умножение" />
+                <ComboBoxItem Content="Деление" />
+            </ComboBox>
+
+            <Button Content="Выполнить" Click="OnCalculateClick" Width="200" Margin="0,10,0,0" FontSize="14px"/>
+            <TextBlock x:Name="ResultTextBlock" Margin="0,10,0,0" FontSize="14px"/>
+        </StackPanel>
+    </Grid>
+</Window>
