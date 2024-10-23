@@ -5,36 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3_1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="MainWindow" Height="700" Width="1600">
     <Grid>
-        <Label Content="Введите количество чисел (n):" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Введите количество чисел:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="20"/>
         <TextBox x:Name="InputN" HorizontalAlignment="Left" Margin="13,47,0,0" VerticalAlignment="Top" Width="305" Height="26" FontSize="14"/>
 
         <Button Content="Сгенерировать" Click="GenerateButton_Click" HorizontalAlignment="Left" Margin="13,101,0,0" VerticalAlignment="Top" Width="305" Height="30" FontSize="20"/>
 
         <Label Content="Массив чисел:" HorizontalAlignment="Left" Margin="11,153,0,0" VerticalAlignment="Top" FontSize="20"/>
         <DataGrid ColumnWidth="*" x:Name="DataGridView" HorizontalAlignment="Left" Margin="11,183,0,0"
-          VerticalAlignment="Top" Height="200" Width="400" FontSize="20"
+          VerticalAlignment="Top" Height="451" Width="202" FontSize="20"
           AutoGenerateColumns="False" CurrentCellChanged="DataGridView_CurrentCellChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Число, Mode=TwoWay}" Header="Число" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Content="Сумма модулей после максимального элемента:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="16"/>
-        <TextBox x:Name="SumOfElements" HorizontalAlignment="Left" Margin="13,476,0,0" VerticalAlignment="Top" Width="120" FontSize="20" IsReadOnly="True"/>
+        <Label Content="Сумма модулей после максимального элемента:" HorizontalAlignment="Left" Margin="597,503,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="SumOfElements" HorizontalAlignment="Left" Margin="600,553,0,0" VerticalAlignment="Top" Width="120" FontSize="20" IsReadOnly="True"/>
 
-        <Label Content=" Колличество элементов в дапазоне&#xD;&#xA;:" HorizontalAlignment="Left" Margin="702,726,0,0" VerticalAlignment="Top" FontSize="20" Width="342" Height="37"/>
-        <TextBox x:Name="CountOfElements" HorizontalAlignment="Left" Margin="813,783,0,0" VerticalAlignment="Top" Width="120" FontSize="20" IsReadOnly="True"/>
+        <Label Content=" Колличество элементов в дапазоне&#xD;&#xA;:" HorizontalAlignment="Left" Margin="1111,563,0,0" VerticalAlignment="Top" FontSize="20" Width="342" Height="37"/>
+        <TextBox x:Name="CountOfElements" HorizontalAlignment="Left" Margin="1222,620,0,0" VerticalAlignment="Top" Width="120" FontSize="20" IsReadOnly="True"/>
 
-        <Label Content="Преобразованный массив:" HorizontalAlignment="Left" Margin="13,533,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <DataGrid ColumnWidth="*" x:Name="TransformedDataGridView" HorizontalAlignment="Left" Margin="13,575,0,0" VerticalAlignment="Top" Height="200" Width="400" FontSize="20"/>
-        <Image HorizontalAlignment="Left" Height="458" Margin="600,153,0,0" VerticalAlignment="Top" Width="920" Source="/fe05e61a-73cf-435b-a712-d51f982a4d40.jpg"/>
-        <Label Content="Диапазон :" HorizontalAlignment="Left" Margin="623,631,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <TextBox x:Name="A" HorizontalAlignment="Left" Margin="813,635,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
-        <TextBox x:Name="B" HorizontalAlignment="Left" Margin="994,635,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
-        <Label Content="A" HorizontalAlignment="Left" Margin="777,631,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="B" HorizontalAlignment="Left" Margin="955,631,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Button x:Name="FindCountOfElement" Content="Найти колличество элементов в диапазоне"  HorizontalAlignment="Left" Margin="651,691,0,0" VerticalAlignment="Top" Width="444" Height="30" FontSize="20" Click="FindCountOfElement_Click"/>
+        <Label Content="Преобразованный массив:" HorizontalAlignment="Left" Margin="309,153,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <DataGrid ColumnWidth="*" x:Name="TransformedDataGridView" HorizontalAlignment="Left" Margin="309,195,0,0" VerticalAlignment="Top" Height="439" Width="200" FontSize="20"/>
+        <Image HorizontalAlignment="Left" Height="215" Margin="600,153,0,0" VerticalAlignment="Top" Width="920" Source="/fe05e61a-73cf-435b-a712-d51f982a4d40.jpg"/>
+        <Label Content="Диапазон :" HorizontalAlignment="Left" Margin="1032,468,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox x:Name="A" HorizontalAlignment="Left" Margin="1222,472,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
+        <TextBox x:Name="B" HorizontalAlignment="Left" Margin="1403,472,0,0" VerticalAlignment="Top" Width="120" FontSize="20" />
+        <Label Content="A" HorizontalAlignment="Left" Margin="1186,468,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="B" HorizontalAlignment="Left" Margin="1364,468,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Button x:Name="FindCountOfElement" Content="Найти колличество элементов в диапазоне"  HorizontalAlignment="Left" Margin="1060,528,0,0" VerticalAlignment="Top" Width="444" Height="30" FontSize="20" Click="FindCountOfElement_Click"/>
     </Grid>
 </Window>

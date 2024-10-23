@@ -106,7 +106,7 @@ namespace Lab2
                 }
                 else
                 {
-                    ResultListBox.Items.Add($"x = {x:F4}, Сумма ряда = {sum:F6}, Точное значение = {f:F6}, Членов ряда = {n + 1}");
+                    ResultListBox.Items.Add($"x = {x:F4}, Сумма ряда = {Math.Abs(sum):F6}, Точное значение = {f:F6}, Членов ряда = {n + 1}");
                 }
             }
         }

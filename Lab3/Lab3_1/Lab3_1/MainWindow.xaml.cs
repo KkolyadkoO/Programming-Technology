@@ -32,7 +32,7 @@ namespace Lab3_1
             }
             else
             {
-                MessageBox.Show("Введите корректное положительное число.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите корректное положительное целочисленное число.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -57,8 +57,8 @@ namespace Lab3_1
 
         private void UpdateValues()
         {
-            double minElement = GetSumAbs();
-            SumOfElements.Text = Math.Round(minElement, 3).ToString();
+            double sumElement = GetSumAbs();
+            SumOfElements.Text = Math.Round(sumElement, 3).ToString();
 
 
             double[] transformedArray = TransformArray();
@@ -80,16 +80,6 @@ namespace Lab3_1
             return sum;
         }
 
-        private double GetSumBetweenFirstTwoNegatives()
-        {
-            int firstNegIndex = Array.FindIndex(randomNumbers, num => num < 0);
-            int secondNegIndex = Array.FindIndex(randomNumbers, firstNegIndex + 1, num => num < 0);
-
-            if (firstNegIndex == -1 || secondNegIndex == -1)
-                return 0;
-
-            return Math.Round(randomNumbers.Skip(firstNegIndex + 1).Take(secondNegIndex - firstNegIndex - 1).Sum(), 3);
-        }
 
         private double[] TransformArray()
         {

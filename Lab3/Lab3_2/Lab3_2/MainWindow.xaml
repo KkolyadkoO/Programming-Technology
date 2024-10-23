@@ -51,7 +51,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="29,497,0,0" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" FontSize="20" Grid.Column="1"><Run Language="ru-ru" Text="Число"/><Run Text=" "/><Run Language="ru-ru" Text="сдвига"/></TextBlock>
-        <ComboBox x:Name="comboBoxDirection" Grid.Column="1" HorizontalAlignment="Left" Margin="24,583,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+        <ComboBox x:Name="comboBoxDirection" Grid.Column="1" HorizontalAlignment="Left" Margin="24,583,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" FontSize="20">
             <ComboBoxItem Content="Вправо" />
             <ComboBoxItem Content="Вниз" />
         </ComboBox>
