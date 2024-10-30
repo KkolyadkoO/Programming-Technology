@@ -1,15 +1,6 @@
-﻿using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace lab7;
 
@@ -63,7 +54,7 @@ public partial class MainWindow : Window
 
         // Добавление записи и сортировка по фамилии
         notes.Add(newNote);
-        notes = notes.OrderBy(n => n.FullName).ToList();
+        SortNotesByFullName();
         UpdateNotesList();
 
         // Очистка текстовых полей после добавления
@@ -73,6 +64,7 @@ public partial class MainWindow : Window
         MonthTextBox.Clear();
         YearTextBox.Clear();
     }
+
     private void UpdateNotesList()
     {
         NotesListBox.Items.Clear();
@@ -80,6 +72,23 @@ public partial class MainWindow : Window
         {
             NotesListBox.Items.Add($"ФИО: {note.FullName}, Телефон: {note.PhoneNumber}, " +
                                    $"Дата рождения: {note.BirthDate[0]:D2}.{note.BirthDate[1]:D2}.{note.BirthDate[2]}");
+        }
+    }
+
+    // Сортировка записей по фамилии
+    private void SortNotesByFullName()
+    {
+        for (int i = 0; i < notes.Count - 1; i++)
+        {
+            for (int j = i + 1; j < notes.Count; j++)
+            {
+                if (string.Compare(notes[i].FullName, notes[j].FullName) > 0)
+                {
+                    var temp = notes[i];
+                    notes[i] = notes[j];
+                    notes[j] = temp;
+                }
+            }
         }
     }
 
@@ -119,19 +128,20 @@ public partial class MainWindow : Window
         }
 
         // Поиск всех записей с указанным месяцем
-        var results = notes.Where(note => note.BirthDate[1] == searchMonth).ToList();
-
-        // Очистка и обновление результатов
         ResultsTextBox.Clear();
-        if (results.Count > 0)
+        bool found = false;
+
+        foreach (var note in notes)
         {
-            foreach (var note in results)
+            if (note.BirthDate[1] == searchMonth)
             {
                 ResultsTextBox.AppendText($"ФИО: {note.FullName}, Телефон: {note.PhoneNumber}, " +
                                           $"Дата рождения: {note.BirthDate[0]:D2}.{note.BirthDate[1]:D2}.{note.BirthDate[2]}\n");
+                found = true;
             }
         }
-        else
+
+        if (!found)
         {
             ResultsTextBox.AppendText("Записи с таким месяцем рождения не найдены.\n");
         }
