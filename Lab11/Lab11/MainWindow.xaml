@@ -1,0 +1,45 @@
+﻿<Window x:Class="Lab11.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Асинхронное программирование" Height="450" Width="800"
+        Closing="Window_Closing">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Button Content="Начать обработку текста" 
+                Click="ProcessTextFile_Click" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Width="200" 
+                Height="30" 
+                Margin="0,0,0,10" />
+        
+        <TextBox Name="textBoxInput" 
+                 Grid.Row="1"
+                 Margin="0,5,0,5"
+                 TextWrapping="Wrap" 
+                 VerticalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 Text="Здесь будет отображен исходный текст..." />
+
+        <TextBox Name="textBoxOutput" 
+                 Grid.Row="2"
+                 Margin="0,5,0,5"
+                 TextWrapping="Wrap" 
+                 VerticalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 Text="Здесь будет отображен преобразованный текст..." />
+
+        <TextBox Name="textBoxSecondaryOutput"
+                 Grid.Row="3"
+                 Margin="0,5,0,0"
+                 TextWrapping="Wrap" 
+                 VerticalScrollBarVisibility="Auto"
+                 IsReadOnly="True"
+                 Text="Здесь будет отображаться вывод второго потока..." />
+    </Grid>
+</Window>
