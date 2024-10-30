@@ -1,0 +1,39 @@
+﻿<Window x:Class="Lab9.MainWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Digital Circuits App" Height="450" Width="600">
+    <Grid>
+        <!-- Выбор типа элемента -->
+        <ComboBox Name="ElementSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10" SelectionChanged="ElementSelector_SelectionChanged">
+            <ComboBoxItem Content="MOD2 (Combinational)"/>
+            <ComboBoxItem Content="D-Trigger (Memory)"/>
+            <ComboBoxItem Content="Register"/>
+        </ComboBox>
+
+        <!-- Показ свойств выбранного элемента -->
+        <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <TextBlock Text="Properties:" FontWeight="Bold" Margin="0,10,0,5"/>
+            <TextBlock Name="ElementName" Text="Name: " Margin="5"/>
+            <TextBlock Name="InputCount" Text="Input Count: " Margin="5"/>
+            <TextBlock Name="OutputCount" Text="Output Count: " Margin="5"/>
+        </StackPanel>
+
+        <!-- Поля для ввода значений входов -->
+        <StackPanel Orientation="Vertical" Margin="10,100,10,10">
+            <TextBlock Text="Input Values (comma-separated):" FontWeight="Bold" Margin="5"/>
+            <TextBox Name="InputValues" Width="200" Margin="5"/>
+            
+            <!-- Кнопки управления элементом -->
+            <Button Name="SetInputsButton" Content="Set Inputs" Click="SetInputsButton_Click" Width="150" Margin="5"/>
+            <Button Name="ComputeButton" Content="Compute Output" Click="ComputeButton_Click" Width="150" Margin="5"/>
+            <Button Name="InvertButton" Content="Invert Output" Click="InvertButton_Click" Width="150" Margin="5"/>
+            <Button Name="ShiftButton" Content="Shift Register" Click="ShiftButton_Click" Width="150" Margin="5" Visibility="Collapsed"/>
+            
+            <TextBlock Name="OutputResult" Text="Output: " FontWeight="Bold" Margin="5"/>
+            
+            <!-- Кнопки сохранения и загрузки -->
+            <Button Name="SaveButton" Content="Save State" Click="SaveButton_Click" Width="150" Margin="5"/>
+            <Button Name="LoadButton" Content="Load State" Click="LoadButton_Click" Width="150" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
