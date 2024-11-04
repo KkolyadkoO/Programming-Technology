@@ -16,19 +16,18 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         _cancellationTokenSource = new CancellationTokenSource();
-        StartBackgroundTask();
+        
     }
 
     private async void ProcessTextFile_Click(object sender, RoutedEventArgs e)
     {
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "text_file.txt");
-        MessageBox.Show($"Путь к файлу: {filePath}");
         if (!File.Exists(filePath))
         {
             MessageBox.Show("Файл не найден.");
             return;
         }
-
+        StartBackgroundTask();
         textBoxInput.Text = "Чтение и обработка текста...";
         string text = await File.ReadAllTextAsync(filePath);
 
@@ -49,7 +48,7 @@ public partial class MainWindow : Window
                 {
                     Dispatcher.Invoke(() => { textBoxInput.Text = $"Преобразованный текст:\n{result.ToString()}"; });
                 }
-                await Task.Delay(1); 
+                await Task.Delay(10); 
                 result.Append(words[i] + " ");
             }
         });

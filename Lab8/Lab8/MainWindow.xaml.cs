@@ -20,7 +20,6 @@ public partial class MainWindow : Window
 
     private void AddNote_Click(object sender, RoutedEventArgs e)
     {
-        // Чтение данных из текстовых полей
         string fullName = FullNameTextBox.Text.Trim();
         string phoneNumber = PhoneTextBox.Text.Trim();
 
@@ -32,7 +31,7 @@ public partial class MainWindow : Window
 
         if (!IsValidPhoneNumber(phoneNumber))
         {
-            MessageBox.Show("Номер телефона должен быть в формате: +375XXXXXXXXX (12 цифр после +375).");
+            MessageBox.Show("Номер телефона должен быть в формате: +375XXXXXXXXX (9 цифр после +375).");
             return;
         }
 
@@ -45,7 +44,6 @@ public partial class MainWindow : Window
             return;
         }
 
-        // Создание новой записи
         NOTE newNote = new NOTE
         {
             FullName = fullName,
@@ -53,12 +51,10 @@ public partial class MainWindow : Window
             BirthDate = new int[] { day, month, year }
         };
 
-        // Добавление записи и сортировка по фамилии
         notes.Add(newNote);
         notes = notes.OrderBy(n => n.FullName).ToList();
         UpdateNotesList();
 
-        // Очистка текстовых полей после добавления
         FullNameTextBox.Clear();
         PhoneTextBox.Clear();
         DayTextBox.Clear();
@@ -75,19 +71,16 @@ public partial class MainWindow : Window
         }
     }
 
-    // Проверка ФИО на формат "Фамилия И. О."
     private bool IsValidFullName(string fullName)
     {
         return Regex.IsMatch(fullName, @"^[А-ЯЁ][а-яё]+\s[А-ЯЁ]\.\s[А-ЯЁ]\.$");
     }
 
-    // Проверка номера телефона на формат "+375XXXXXXXXX"
     private bool IsValidPhoneNumber(string phoneNumber)
     {
-        return Regex.IsMatch(phoneNumber, @"^\+375\d{9}$");
+        return Regex.IsMatch(phoneNumber, @"\d{12}$");
     }
 
-    // Проверка на существующую дату
     private bool IsValidDate(int day, int month, int year)
     {
         try
@@ -101,7 +94,6 @@ public partial class MainWindow : Window
         }
     }
 
-    // Обработчик кнопки для поиска по месяцу
     private void SearchByMonth_Click(object sender, RoutedEventArgs e)
     {
         if (!int.TryParse(MonthSearchTextBox.Text, out int searchMonth) || searchMonth < 1 || searchMonth > 12)
@@ -110,10 +102,8 @@ public partial class MainWindow : Window
             return;
         }
 
-        // Поиск всех записей с указанным месяцем
         var results = notes.Where(note => note.BirthDate[1] == searchMonth).ToList();
 
-        // Очистка и обновление результатов
         ResultsTextBox.Clear();
         if (results.Count > 0)
         {

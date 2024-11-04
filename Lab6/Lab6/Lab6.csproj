@@ -8,4 +8,12 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="5247025958156887264.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="5247025958156887264.jpg" />
+    </ItemGroup>
+
 </Project>

@@ -85,9 +85,10 @@ namespace Lab3_2
 
                     }
                 }
-                if (!int.TryParse(countForShift.Text, out int shift))
+                if (!int.TryParse(countForShift.Text, out int shift) || shift <=0)
                 {
                     MessageBox.Show("Ошибка: введите корректное число для сдвига.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
                 var selectedItem = comboBoxDirection.SelectedItem as ComboBoxItem;
                 string selectedDirection = selectedItem.Content.ToString();

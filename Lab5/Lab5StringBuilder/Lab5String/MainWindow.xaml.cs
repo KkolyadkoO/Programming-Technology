@@ -33,14 +33,22 @@ public partial class MainWindow : Window
 
             foreach (var word in words)
             {
-                if (vowels.Contains(word[0].ToString()))
+                try
                 {
-                    sb.Append(char.ToUpper(word[0]) + word.Substring(1) + " ");
+                    if (vowels.Contains(word[0].ToString()))
+                    {
+                        sb.Append(char.ToUpper(word[0]) + word.Substring(1) + " ");
+                    }
+                    else
+                    {
+                        sb.Append(word + " ");
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    sb.Append(word + " ");
+
                 }
+                
             }
 
             textBoxOutput.Text = sb.ToString().Trim();

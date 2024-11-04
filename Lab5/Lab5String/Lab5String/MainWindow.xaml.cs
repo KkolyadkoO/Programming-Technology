@@ -25,6 +25,7 @@ public partial class MainWindow : Window
         if (openFileDialog.ShowDialog() == true)
         {
             string filePath = openFileDialog.FileName;
+            MessageBox.Show(filePath);
 
             string text = File.ReadAllText(filePath);
             textBoxInput.Text = "Исходный текст:\n"+text;
@@ -32,11 +33,16 @@ public partial class MainWindow : Window
             string[] words = text.Split(' ');
             string[] vowels = { "A", "E", "I", "O", "U", "a", "e", "i", "o", "u" };
 
-            for (int i = 0; i < words.Length; i++)
+            for (long i = 0; i < words.Length; i++)
             {
-                if (vowels.Contains(words[i][0].ToString()))
+                try
                 {
-                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
+                    if (vowels.Contains(words[i][0].ToString()))
+                    {
+                        words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1);
+                    }
+                }
+                catch(Exception) {
                 }
             }
 

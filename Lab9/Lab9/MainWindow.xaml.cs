@@ -35,18 +35,21 @@ public partial class MainWindow : Window
         {
             case "MOD2 (Combinational)":
                 currentElement = combinationalElement;
-                ShiftButton.Visibility = Visibility.Collapsed;
+                ShiftPanel.Visibility = Visibility.Collapsed;
+                RegisterState.Visibility = Visibility.Collapsed;
                 break;
             case "D-Trigger (Memory)":
                 currentElement = memoryElement;
-                ShiftButton.Visibility = Visibility.Collapsed;
+                ShiftPanel.Visibility = Visibility.Collapsed;
+                RegisterState.Visibility = Visibility.Collapsed;
                 break;
             case "Register":
                 currentElement = registerElement;
-                ShiftButton.Visibility = Visibility.Visible;
+                ShiftPanel.Visibility = Visibility.Visible;
+                RegisterState.Visibility = Visibility.Visible;
                 break;
         }
-
+        UpdateTriggersInfo();
         DisplayElementProperties();
     }
 
@@ -64,13 +67,20 @@ public partial class MainWindow : Window
             var inputs = InputValues.Text.Split(',')
                 .Select(int.Parse)
                 .ToArray();
+            if(currentElement == null)
+            {
+                MessageBox.Show($"Выберите элемент");
+                return;
+            }
             currentElement.SetInputs(inputs);
+            UpdateTriggersInfo();
             OutputResult.Text = "Inputs set successfully.";
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Error setting inputs: {ex.Message}");
         }
+        
     }
 
     private void ComputeButton_Click(object sender, RoutedEventArgs e)
@@ -82,58 +92,84 @@ public partial class MainWindow : Window
     {
         currentElement.Invert();
         OutputResult.Text = $"Output (Inverted): {currentElement.ComputeOutput()}";
+        UpdateTriggersInfo();
     }
 
     private void ShiftButton_Click(object sender, RoutedEventArgs e)
     {
+        if(!int.TryParse(ShiftValue.Text, out var shift) || shift<0)
+        {
+            OutputResult.Text = $"Output (ERROR): Enter a correct shift value";
+            return;
+        }
         if (currentElement is Register register)
         {
-            register.Shift(1); // Сдвиг на 1 бит (можно добавить возможность выбора количества битов)
+            register.Shift(shift);
             OutputResult.Text = "Shifted Register";
         }
+       
+        UpdateTriggersInfo();
     }
 
-    [Obsolete("Obsolete")]
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        try
+        using (var writer = new StreamWriter("save.txt"))
         {
-            using (FileStream fs = new FileStream("elements.bin", FileMode.Create))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(fs, new Element[] { combinationalElement, memoryElement, registerElement });
-            }
-
-            MessageBox.Show("State saved successfully.");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error saving state: {ex.Message}");
-        }
+            writer.WriteLine(memoryElement.ToBinaryString());
+            writer.WriteLine(registerElement.ToBinaryString());
+            writer.WriteLine(combinationalElement.ToBinaryString());
+        } 
     }
 
-    [Obsolete("Obsolete")]
     private void LoadButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!File.Exists("save.txt"))
+        {
+            MessageBox.Show("Error", "Savefile not found");
+            return;
+        }
+        using(var reader = new StreamReader("save.txt"))
+        {
+            string line = reader.ReadLine();
+            memoryElement.FromBinaryString(line);
+            line = reader.ReadLine();
+            registerElement.FromBinaryString(line);
+            line = reader.ReadLine();
+            combinationalElement.FromBinaryString(line);
+        }
+        
+        UpdateTriggersInfo();
+    }
+    private void CheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        registerElement.SetSetState(1);
+        UpdateTriggersInfo();
+    }
+
+    private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+    {
+        registerElement.SetSetState(0);
+        UpdateTriggersInfo();
+    }
+    private void UpdateTriggersInfo()
     {
         try
         {
-            using (FileStream fs = new FileStream("elements.bin", FileMode.Open))
+            if (currentElement is Register)
             {
-                BinaryFormatter formatter = new BinaryFormatter();
-                var elements = (Element[])formatter.Deserialize(fs);
+                OutputAllTriggersInRegister.Text = "Triggers: " + currentElement.ToString();
+                RegisterState.IsChecked = registerElement.getCurrentState() == 0 ? false : true;
 
-                combinationalElement = elements.OfType<Combinational>().FirstOrDefault();
-                memoryElement = elements.OfType<Memory>().FirstOrDefault();
-                registerElement = elements.OfType<Register>().FirstOrDefault();
-
-                MessageBox.Show("State loaded successfully.");
             }
-
-            DisplayElementProperties();
+            else
+            {
+                OutputAllTriggersInRegister.Text = "Inputs: " + currentElement.ToString();
+            }
         }
-        catch (Exception ex)
+        catch (NullReferenceException)
         {
-            MessageBox.Show($"Error loading state: {ex.Message}");
+
         }
+        
     }
 }

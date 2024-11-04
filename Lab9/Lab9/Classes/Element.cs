@@ -1,6 +1,8 @@
 ﻿using Lab9.Interfaces;
+using System.IO;
 
 namespace Lab9.Classes;
+[Serializable]
 public abstract class Element : IInvertible
 {
     private string name;
@@ -32,4 +34,14 @@ public abstract class Element : IInvertible
     {
         throw new NotImplementedException("Invert not implemented for this element.");
     }
+    public virtual string ToBinaryString()
+    {
+        throw new NotImplementedException();
+    }
+    public virtual void FromBinaryString(string dataString)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }
