@@ -48,12 +48,13 @@ public partial class MainWindow : Window
                 {
                     Dispatcher.Invoke(() => { textBoxInput.Text = $"Преобразованный текст:\n{result.ToString()}"; });
                 }
-                await Task.Delay(10); 
+                
                 result.Append(words[i] + " ");
             }
         });
 
         textBoxInput.Text = "Преобразованный текст:\n" + result.ToString();
+        _cancellationTokenSource.Cancel();
     }
 
     private async void StartBackgroundTask()

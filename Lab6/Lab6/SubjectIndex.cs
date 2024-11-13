@@ -3,15 +3,16 @@
 public class SubjectIndex : IComparable
 {
     public string Word { get; set; }
-    public List<int> PageNumbers { get; set; }
+    public int[] PageNumbers { get; set; }
 
-    public SubjectIndex(string word, List<int> pageNumbers)
+    public SubjectIndex(string word, int[] pageNumbers)
     {
         Word = word;
         PageNumbers = pageNumbers;
     }
 
-    public SubjectIndex() : this(string.Empty, new List<int>()) { }
+
+    public SubjectIndex() : this(string.Empty, new int[10]) { }
 
     public int CompareTo(SubjectIndex? other)
     {
