@@ -1,0 +1,51 @@
+﻿<Window x:Class="Lab10.MainWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lb 10" Height="600" Width="893">
+    <DockPanel Background="White">
+        <Menu DockPanel.Dock="Top" Height="30px" VerticalContentAlignment="Center">
+            <MenuItem Header="Выход" Click="Exit_Click"/>
+            <MenuItem Header="Сохранить график" Click="SaveButton_Click"/>
+            <MenuItem Header="Изменить цвет" Click="ChangeColorButton_Click"/>
+            <MenuItem Header="Загрузить фон" Click="LoadBackgroundButton_Click"/>
+            <MenuItem Header="Построить график" Click="DrawGraphButton_Click"/>
+            <MenuItem Header="Настройки графика" Click="OpenGraphSettingsWindow_Click"/>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+                <Label VerticalAlignment="Center" Content="Текст:" FontFamily="Century Gothic" FontSize="16"/>
+                <TextBox VerticalAlignment="Center" x:Name="GraphTextBox" Text="График" Width="200" Margin="5" TextChanged="GraphTextBox_TextChanged" Padding="8,8,8,8" FontFamily="Century Gothic" FontSize="16"/>
+                <Label VerticalAlignment="Center" Content="a:" FontFamily="Century Gothic" FontSize="16"/>
+                <TextBox VerticalAlignment="Center" x:Name="ParameterATextBox" Text="20" Width="100" Margin="5" TextChanged="ParameterATextBox_TextChanged" Padding="8,8,8,8" FontFamily="Century Gothic" FontSize="16"/>
+                <Label VerticalAlignment="Center" Content="Шрифт:" FontFamily="Century Gothic" FontSize="16"/>
+                <ComboBox FontFamily="Century Gothic" FontSize="16" VerticalAlignment="Center" x:Name="FontStyleComboBox" Width="150" Margin="5" SelectionChanged="FontStyleComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Обычный" IsSelected="True" FontFamily="Century Gothic" FontSize="16"/>
+                    <ComboBoxItem Content="Жирный" FontFamily="Century Gothic" FontSize="16"/>
+                    <ComboBoxItem Content="Курсив" FontFamily="Century Gothic" FontSize="16"/>
+                </ComboBox>
+
+            </StackPanel>
+            <Border Grid.Row="1" x:Name="GraphContainer" Background="Transparent"
+                    MouseMove="GraphContainer_MouseMove"
+                    MouseLeftButtonDown="GraphContainer_MouseLeftButtonDown"
+                    MouseLeftButtonUp="GraphContainer_MouseLeftButtonUp"
+                    Margin="50,20,50,50"
+                    >
+                <Canvas x:Name="GraphCanvas" Background="White" ClipToBounds="True" Visibility="Hidden">
+                    <Ellipse x:Name="TopLeftResizer" Width="10" Height="10" Fill="Black" Cursor="SizeNWSE"
+               PreviewMouseDown="TopLeftResizer_PreviewMouseDown" PreviewMouseUp="Resizer_PreviewMouseUp"/>
+                    <Ellipse x:Name="BottomRightResizer" Width="10" Height="10" Fill="Black" Cursor="SizeNWSE"
+               Canvas.Right="0" Canvas.Bottom="0"
+               PreviewMouseDown="BottomRightResizer_PreviewMouseDown" PreviewMouseUp="Resizer_PreviewMouseUp"/>
+                    <Ellipse x:Name="MoveHandle" Width="15" Height="15" Fill="Blue" Cursor="Hand" Canvas.Left="389" Canvas.Top="179"/>
+                </Canvas>
+            </Border>
+            
+        </Grid>
+    </DockPanel>
+</Window>

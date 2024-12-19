@@ -50,6 +50,7 @@ public partial class MainWindow : Window
                 }
                 
                 result.Append(words[i] + " ");
+                Thread.Sleep(50);
             }
         });
 

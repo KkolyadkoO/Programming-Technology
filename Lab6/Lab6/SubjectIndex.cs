@@ -5,6 +5,7 @@ public class SubjectIndex : IComparable
     public string Word { get; set; }
     public int[] PageNumbers { get; set; }
 
+
     public SubjectIndex(string word, int[] pageNumbers)
     {
         Word = word;
@@ -61,5 +62,19 @@ public class SubjectIndex : IComparable
     public int CompareTo(object? obj)
     {
         throw new NotImplementedException();
+    }
+    public void RemovePageNumberAt(int index)
+    {
+        if (index < 0 || index >= PageNumbers.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index), "Индекс выходит за пределы массива.");
+        }
+
+        for (int i = index; i < PageNumbers.Length - 1; i++)
+        {
+            PageNumbers[i] = PageNumbers[i + 1];
+        }
+
+        PageNumbers[PageNumbers.Length - 1] = default;
     }
 }

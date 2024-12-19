@@ -19,7 +19,6 @@ public partial class MainWindow : Window
 
     private void AddNote_Click(object sender, RoutedEventArgs e)
     {
-        // Чтение данных из текстовых полей
         string fullName = FullNameTextBox.Text.Trim();
         string phoneNumber = PhoneTextBox.Text.Trim();
 
