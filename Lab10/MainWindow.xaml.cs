@@ -29,6 +29,10 @@ namespace Lab10
         private FontWeight graphFontWeight = FontWeights.Normal;
         private FontStyle graphFontStyle = FontStyles.Normal;
         private double parameterA = 20;
+        private double graphScaleX = 1;
+        private double graphScaleY = 1;
+        private double graphOffsetX = 0;
+        private double graphOffsetY = 0;
 
         delegate void GraphParametersChanged();
         event GraphParametersChanged NotifyGraphParametersChanged;
@@ -127,10 +131,11 @@ namespace Lab10
             GraphCanvas.Visibility = Visibility.Visible;
             GraphCanvas.Children.Clear();
 
-            double xc = GraphCanvas.ActualWidth / 2;
-            double yc = GraphCanvas.ActualHeight / 2;
+            double xc = GraphCanvas.ActualWidth / 2 + graphOffsetX;
+            double xcc = GraphCanvas.ActualWidth / 2 ;
+            double yc = GraphCanvas.ActualHeight / 2 + graphOffsetY;
+            double ycc = GraphCanvas.ActualHeight / 2 ;
 
-            // Добавление текста на график
             TextBlock textBlock = new TextBlock
             {
                 Text = graphText,
@@ -138,10 +143,9 @@ namespace Lab10
                 FontWeight = graphFontWeight,
                 FontStyle = graphFontStyle,
                 FontSize = 24,
-                Margin = new Thickness(xc , 0, 0, 0)
+                Margin = new Thickness(xcc, 0, 0, 0)
             };
             GraphCanvas.Children.Add(textBlock);
-
 
             Polyline polyline = new Polyline
             {
@@ -152,35 +156,52 @@ namespace Lab10
             double scaleX = GraphCanvas.ActualWidth / 300;
             double scaleY = GraphCanvas.ActualHeight / 300;
 
+
             for (double t = 0; t <= 2 * Math.PI; t += 0.01)
             {
-                double x = parameterA * (2 * Math.Cos(t) - Math.Cos(2 * t));
-                double y = parameterA * (2 * Math.Sin(t) - Math.Sin(2 * t));
+
+                double x = parameterA * (2 * Math.Cos(t) - Math.Cos(2 * t)) * graphScaleX;
+                double y = parameterA * (2 * Math.Sin(t) - Math.Sin(2 * t)) * graphScaleY;
 
                 polyline.Points.Add(new Point(xc + x * scaleX, yc - y * scaleY));
             }
 
-            // Добавление управляющих элементов
-            GraphCanvas.Children.Add(BottomRightResizer);
-            GraphCanvas.Children.Add(TopLeftResizer);
-            GraphCanvas.Children.Add(MoveHandle);
             GraphCanvas.Children.Add(polyline);
 
-            PositionElements();
+            // Убедимся, что в Polyline есть точки
+            Point bottomRightPosition = polyline.Points[(int)(polyline.Points.Count/2.5)];
+            Canvas.SetLeft(TopLeftResizer, bottomRightPosition.X - TopLeftResizer.Width / 2);
+            Canvas.SetTop(TopLeftResizer, bottomRightPosition.Y - TopLeftResizer.Height / 2);
+            GraphCanvas.Children.Add(TopLeftResizer);
 
+            // Установка позиции TopLeftResizer на первой точке polyline
+            Point topLeftPosition = polyline.Points[(int)(polyline.Points.Count - polyline.Points.Count*0.25)];
+            Canvas.SetLeft(BottomRightResizer, topLeftPosition.X - TopLeftResizer.Width / 2);
+            Canvas.SetTop(BottomRightResizer, topLeftPosition.Y - TopLeftResizer.Height / 2);
+            GraphCanvas.Children.Add(BottomRightResizer);
+
+
+            // Добавление управляющего элемента для перемещения
+            GraphCanvas.Children.Add(MoveHandle);
+
+            PositionElements();
         }
+
+
 
 
         private void PositionElements()
         {
-            Canvas.SetLeft(TopLeftResizer, 0);
-            Canvas.SetTop(TopLeftResizer, 0);
+            //Canvas.SetLeft(TopLeftResizer, 0);
+            //Canvas.SetTop(TopLeftResizer, 0);
 
-            Canvas.SetLeft(BottomRightResizer, GraphCanvas.ActualWidth - 10);
-            Canvas.SetTop(BottomRightResizer, GraphCanvas.ActualHeight - 10);
+            //Canvas.SetLeft(BottomRightResizer, GraphCanvas.ActualWidth - 10);
+            //Canvas.SetTop(BottomRightResizer, GraphCanvas.ActualHeight - 10);
 
-            Canvas.SetLeft(MoveHandle, GraphCanvas.ActualWidth / 2 - 7.5);
-            Canvas.SetTop(MoveHandle, GraphCanvas.ActualHeight / 2 - 7.5);
+            //Canvas.SetLeft(MoveHandle, GraphCanvas.ActualWidth / 2 - 7.5);
+            Canvas.SetLeft(MoveHandle, GraphCanvas.ActualWidth / 2 + graphOffsetX - 7.5);
+            Canvas.SetTop(MoveHandle, GraphCanvas.ActualHeight / 2 + graphOffsetY - 7.5);
+            //Canvas.SetTop(MoveHandle, GraphCanvas.ActualHeight / 2 - 7.5);
         }
 
         private void GraphContainer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -208,18 +229,15 @@ namespace Lab10
 
             if (isResizing)
             {
-                if (GraphCanvas.ActualWidth + deltaX > 50 && GraphCanvas.ActualHeight + deltaY > 50)
+                if (isTopLeftResizing)
                 {
-                    if (isTopLeftResizing)
-                    {
-                        GraphCanvas.Width = Math.Max(GraphCanvas.ActualWidth - deltaX, 50);
-                        GraphCanvas.Height = Math.Max(GraphCanvas.ActualHeight - deltaY, 50);
-                    }
-                    else if (isBottomRightResizing)
-                    {
-                        GraphCanvas.Width = Math.Max(GraphCanvas.ActualWidth + deltaX, 50);
-                        GraphCanvas.Height = Math.Max(GraphCanvas.ActualHeight + deltaY, 50);
-                    }
+                    graphScaleX = Math.Max(graphScaleX - deltaX / 100, 0.1);
+                    graphScaleY = Math.Max(graphScaleY - deltaY / 100, 0.1);
+                }
+                else if (isBottomRightResizing)
+                {
+                    graphScaleX = Math.Max(graphScaleX + deltaX / 100, 0.1);
+                    graphScaleY = Math.Max(graphScaleY + deltaY / 100, 0.1);
                 }
 
                 lastMousePosition = currentPosition;
@@ -227,15 +245,14 @@ namespace Lab10
             }
             else if (isMoving)
             {
-                GraphCanvas.Margin = new Thickness(
-                    GraphCanvas.Margin.Left + deltaX,
-                    GraphCanvas.Margin.Top + deltaY,
-                    0, 0);
+                graphOffsetX += deltaX;
+                graphOffsetY += deltaY;
 
                 lastMousePosition = currentPosition;
+                NotifyGraphParametersChanged();
             }
 
-            e.Handled = true;
+                e.Handled = true;
         }
 
         private void GraphContainer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -244,7 +261,6 @@ namespace Lab10
             isMoving = false;
             GraphContainer.ReleaseMouseCapture();
 
-            // Проверка, если canvas выехал за границы окна
             var windowBounds = new Rect(0, 0, GraphContainer.ActualWidth, GraphContainer.ActualHeight);
             var canvasBounds = GraphCanvas.TransformToAncestor(GraphContainer).TransformBounds(new Rect(0, 0, GraphCanvas.ActualWidth, GraphCanvas.ActualHeight));
 
@@ -312,46 +328,39 @@ namespace Lab10
         }
         private void OpenGraphSettingsWindow_Click(object sender, RoutedEventArgs e)
         {
-            // Передаем текущие параметры в окно настроек
             int fontStyleIndex = FontStyleComboBox.SelectedIndex;
             var settingsWindow = new GraphSettingsWindow(graphText, parameterA, fontStyleIndex);
 
-            // Показываем окно настроек
             if (settingsWindow.ShowDialog() == true)
             {
-                // Применяем изменения из окна настроек
                 GraphTextBox.Text = settingsWindow.GraphText;
                 ParameterATextBox.Text = settingsWindow.ParameterA.ToString();
                 graphText = settingsWindow.GraphText;
                 parameterA = settingsWindow.ParameterA;
                 FontStyleComboBox.SelectedIndex = settingsWindow.FontStyleIndex;
 
-                NotifyGraphParametersChanged?.Invoke(); // Вызываем событие обновления
+                NotifyGraphParametersChanged?.Invoke();
             }
         }
 
         private void ParameterATextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Получаем текущее значение TextBox
             string currentText = ParameterATextBox.Text;
 
-            // Пытаемся преобразовать значение в double
             if (double.TryParse(currentText, out double a))
             {
-                // Успешно: обновляем параметр и вызываем событие
                 parameterA = a;
                 NotifyGraphParametersChanged?.Invoke();
             }
             else
             {
-                // Не удалось: сохраняем предыдущий корректный текст
-                if (!string.IsNullOrEmpty(currentText)) // Проверяем, что текст не пустой
+                if (!string.IsNullOrEmpty(currentText)) 
                 {
                     int caretPosition = ParameterATextBox.SelectionStart;
-                    ParameterATextBox.TextChanged -= ParameterATextBox_TextChanged; // Отписываемся временно
+                    ParameterATextBox.TextChanged -= ParameterATextBox_TextChanged; 
                     ParameterATextBox.Text = currentText.Remove(currentText.Length - 1);
-                    ParameterATextBox.SelectionStart = Math.Max(caretPosition - 1, 0); // Защита от отрицательных значений
-                    ParameterATextBox.TextChanged += ParameterATextBox_TextChanged; // Подписываемся снова
+                    ParameterATextBox.SelectionStart = Math.Max(caretPosition - 1, 0); 
+                    ParameterATextBox.TextChanged += ParameterATextBox_TextChanged; 
                 }
             }
         }
